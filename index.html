@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Муканбетшеров Акниет — цифровая визитка</title>
+<meta name="description" content="Цифровая визитка Ивана Иванова — директора по развитию Goldline Consulting.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<style>
+  :root{
+    --black:#0a0a0a;
+    --surface:#141414;
+    --surface-hover:#1b1b1b;
+    --white:#ffffff;
+    --muted:#9a9a9a;
+    --text-soft:#c8c8c8;
+    --gold:#d4af37;
+    --gold-dim:rgba(212,175,55,.35);
+    --radius:14px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px calc(40px + env(safe-area-inset-bottom));
+    background:radial-gradient(120% 75% at 50% 0%, #1d1d1d 0%, #0a0a0a 58%);
+    background-attachment:fixed;
+    color:var(--white);
+    font-family:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ============ КАРТОЧКА ============ */
+  .card{
+    width:100%;
+    max-width:420px;
+    text-align:center;
+  }
+
+  /* ---------- Аватар ---------- */
+  .avatar-wrap{
+    position:relative;
+    width:124px;
+    height:124px;
+    margin:0 auto 26px;
+    border-radius:50%;
+    padding:3px;
+    background:linear-gradient(145deg, #f0d97a, var(--gold) 45%, #8a6d1f);
+    box-shadow:0 0 0 1px rgba(212,175,55,.15), 0 12px 34px rgba(0,0,0,.55);
+  }
+
+  .initials{
+    position:absolute;
+    inset:3px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:var(--surface);
+    color:var(--gold);
+    font-size:2rem;
+    font-weight:600;
+    letter-spacing:.04em;
+  }
+
+  .avatar-wrap img{
+    position:relative;
+    z-index:1;
+    display:block;
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    background:var(--surface);
+  }
+
+  /* ---------- Текстовый блок ---------- */
+  .name{
+    font-size:clamp(1.75rem, 8vw, 2.15rem);
+    font-weight:600;
+    letter-spacing:-.015em;
+    line-height:1.15;
+  }
+
+  .role{
+    margin-top:10px;
+    font-size:.95rem;
+    font-weight:400;
+    color:var(--muted);
+  }
+
+  .company{
+    margin-top:8px;
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+
+  .bio{
+    max-width:340px;
+    margin:24px auto 0;
+    font-size:.92rem;
+    font-weight:300;
+    line-height:1.7;
+    color:var(--text-soft);
+  }
+
+  .divider{
+    width:52px;
+    height:1px;
+    margin:28px auto 0;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* ---------- Кнопки-контакты ---------- */
+  .contacts{
+    display:grid;
+    gap:10px;
+    margin-top:26px;
+  }
+
+  .contact{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+    padding:12px 16px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:var(--radius);
+    background:var(--surface);
+    color:var(--white);
+    font-size:.94rem;
+    font-weight:500;
+    text-decoration:none;
+    transition:transform .18s ease, background .25s ease,
+               border-color .25s ease, box-shadow .25s ease;
+  }
+
+  .contact .lead{
+    display:grid;
+    place-items:center;
+    flex:0 0 38px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:rgba(212,175,55,.12);
+    color:var(--gold);
+    font-size:.95rem;
+    transition:background .25s ease, transform .25s ease;
+  }
+
+  .contact .label{flex:1;text-align:left}
+
+  .contact .arrow{
+    font-size:.72rem;
+    color:#4a4a4a;
+    transition:color .25s ease, transform .25s ease;
+  }
+
+  .contact:hover,
+  .contact:focus-visible{
+    outline:none;
+    background:var(--surface-hover);
+    border-color:var(--gold-dim);
+    box-shadow:0 6px 20px rgba(0,0,0,.45);
+  }
+  .contact:hover .lead,
+  .contact:focus-visible .lead{background:rgba(212,175,55,.22);transform:scale(1.05)}
+  .contact:hover .arrow,
+  .contact:focus-visible .arrow{color:var(--gold);transform:translateX(3px)}
+
+  .contact:active{
+    transform:scale(.975);
+    background:#101010;
+  }
+
+  /* ---------- Сохранить контакт ---------- */
+  .save{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    margin-top:20px;
+    padding:16px;
+    border:none;
+    border-radius:var(--radius);
+    background:linear-gradient(135deg, #ecd475 0%, var(--gold) 50%, #b8912b 100%);
+    color:#0a0a0a;
+    font-family:inherit;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:.01em;
+    cursor:pointer;
+    box-shadow:0 8px 26px rgba(212,175,55,.22);
+    transition:transform .18s ease, box-shadow .3s ease, filter .3s ease;
+  }
+
+  .save:hover{filter:brightness(1.07);box-shadow:0 10px 32px rgba(212,175,55,.36)}
+  .save:active{transform:scale(.97);box-shadow:0 4px 16px rgba(212,175,55,.25)}
+  .save:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .save i{font-size:1rem}
+
+  .footer{
+    margin-top:28px;
+    font-size:.7rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#4d4d4d;
+  }
+
+  /* ---------- Тост ---------- */
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:calc(28px + env(safe-area-inset-bottom));
+    transform:translate(-50%, 18px);
+    padding:11px 20px;
+    border-radius:999px;
+    background:var(--gold);
+    color:#0a0a0a;
+    font-size:.84rem;
+    font-weight:600;
+    white-space:nowrap;
+    opacity:0;
+    pointer-events:none;
+    z-index:20;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+    transition:opacity .35s ease, transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .toast.show{opacity:1;transform:translate(-50%, 0)}
+
+  /* ---------- Анимация появления ---------- */
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(16px)}
+    to  {opacity:1;transform:translateY(0)}
+  }
+
+  .reveal{
+    opacity:0;
+    animation:fadeUp .8s cubic-bezier(.22,1,.36,1) forwards;
+    animation-delay:var(--d, 0s);
+  }
+
+  /* ---------- Планшеты / десктоп ---------- */
+  @media (min-width:480px){
+    .avatar-wrap{width:136px;height:136px;margin-bottom:30px}
+    .initials{font-size:2.2rem}
+    .name{font-size:2.3rem}
+    .contact{padding:13px 18px}
+    .bio{font-size:.95rem}
+  }
+
+  /* ---------- Уважение к настройкам ОС ---------- */
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.001ms !important;
+    }
+    .reveal{opacity:1}
+  }
+</style>
+</head>
+<body>
+
+<main class="card">
+
+  <!-- Аватар (если файла нет — покажутся инициалы) -->
+  <div class="avatar-wrap reveal" style="--d:.05s">
+    <span class="initials">АМ</span>
+    <img src="avatar.jpg" alt="Акниет Муканбетшеров" onerror="this.remove()">
+  </div>
+
+  <!-- Имя / должность / компания -->
+  <h1 class="name reveal" style="--d:.14s">Акниет Муканбетшеров</h1>
+  <p class="role reveal" style="--d:.20s">Студент 2 курса,</p>
+  <P class="company reveal" style="--d:.26s">КГУ. им. И. Арабаева</P>
+
+  <!-- Короткое описание -->
+  <p class="bio reveal" style="--d:.34s">
+    Учусь на разработчика, интересуюсь веб-технологиями.
+  </p>
+
+  <div class="divider reveal" style="--d:.40s"></div>
+
+  <!-- Контакты -->
+  <nav class="contacts" aria-label="Контакты">
+
+    <a class="contact reveal" style="--d:.46s" href="tel:+996709452255">
+      <span class="lead"><i class="fa-solid fa-phone"></i></span>
+      <span class="label">Позвонить</span>
+      <i class="fa-solid fa-chevron-right arrow"></i>
+    </a>
+
+    <a class="contact reveal" style="--d:.52s"
+       href="https://wa.me/996709452255" target="_blank" rel="noopener noreferrer">
+      <span class="lead"><i class="fa-brands fa-whatsapp"></i></span>
+      <span class="label">WhatsApp</span>
+      <i class="fa-solid fa-chevron-right arrow"></i>
+    </a>
+
+    <a class="contact reveal" style="--d:.58s"
+       href="" target="_blank" rel="noopener noreferrer">
+      <span class="lead"><i class="fa-brands fa-telegram"></i></span>
+      <span class="label">Telegram</span>
+      <i class="fa-solid fa-chevron-right arrow"></i>
+    </a>
+
+    <a class="contact reveal" style="--d:.64s"
+       href="mukanbetsherov2007@gmail.com?subject=Запрос%20с%20визитки">
+      <span class="lead"><i class="fa-regular fa-envelope"></i></span>
+      <span class="label">Email</span>
+      <i class="fa-solid fa-chevron-right arrow"></i>
+    </a>
+
+    <a class="contact reveal" style="--d:.70s"
+       href="https://instagram.com/p.571550" target="_blank" rel="noopener noreferrer">
+      <span class="lead"><i class="fa-brands fa-instagram"></i></span>
+      <span class="label">Instagram</span>
+      <i class="fa-solid fa-chevron-right arrow"></i>
+    </a>
+
+  </nav>
+
+  <!-- Сохранить в контакты -->
+  <button class="save reveal" style="--d:.78s" id="saveContact" type="button">
+    <i class="fa-solid fa-address-card"></i>
+    Сохранить контакт
+  </button>
+
+  <p class="footer reveal" style="--d:.86s">Цифровая визитка</p>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Контакт сохранён</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ====== ДАННЫЕ ДЛЯ vCard — отредактируйте под себя ====== */
+  var CONTACT = {
+    firstName: 'Акниет',
+    lastName:  'Муканбетшеров',
+    org:       'Goldline Consulting',
+    title:     'Директор по развитию',
+    phone:     '+996709452255',
+    email:     'mukanbetsherov2007@gmail.com',
+    instagram: 'akniet',
+  };
+  /* ======================================================= */
+
+  var saveBtn = document.getElementById('saveContact');
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
+
+  saveBtn.addEventListener('click', function () {
+    var tel = CONTACT.phone.replace(/[^\d+]/g, '');
+
+    var vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:' + CONTACT.lastName + ';' + CONTACT.firstName + ';;;',
+      'FN:' + CONTACT.firstName + ' ' + CONTACT.lastName,
+      'ORG:' + CONTACT.org,
+      'TITLE:' + CONTACT.title,
+      'TEL;TYPE=CELL,VOICE:' + tel,
+      'EMAIL;TYPE=INTERNET,WORK:' + CONTACT.email,
+      'URL:' + CONTACT.website,
+      'X-SOCIALPROFILE;TYPE=instagram:https://instagram.com/' + CONTACT.instagram,
+      'REV:' + new Date().toISOString(),
+      'END:VCARD'
+    ].join('\r\n');
+
+    var blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    var url  = URL.createObjectURL(blob);
+
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'ivan-ivanov.vcf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    showToast('Контакт сохранён');
+  });
+
+  function showToast(text) {
+    toastEl.textContent = text;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastEl.classList.remove('show');
+    }, 2600);
+  }
+})();
+</script>
+
+</body>
+</html>
